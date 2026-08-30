@@ -163,6 +163,17 @@ export const FaultScheduleSchema = z.object({
 
 export type FaultSchedule = z.infer<typeof FaultScheduleSchema>;
 
+// Template allows probability and specific numeric fields (like delayMs) to be ranges [min, max]
+export const FaultScheduleTemplateSchema = z.object({
+  id: z.string().uuid(),
+  spec: z.any(), // Will be merged into a concrete FaultSpec
+  probabilityRange: z.tuple([z.number(), z.number()]).optional(),
+  delayMsRange: z.tuple([z.number(), z.number()]).optional(),
+  target: z.record(z.string(), z.any()).optional(),
+});
+
+export type FaultScheduleTemplate = z.infer<typeof FaultScheduleTemplateSchema>;
+
 export const SimulationRunSchema = z.object({
   id: z.string().uuid(),
   environment: SimulationEnvironmentSchema,
