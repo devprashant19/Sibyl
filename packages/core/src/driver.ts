@@ -1,4 +1,4 @@
-import { FaultSpec, FaultDomain, CapturedEvent } from '@sibyl/shared';
+import { FaultSpec, FaultDomain, CapturedEvent } from '@sibyl-shared';
 import { VirtualClock } from './clock';
 
 export interface DriverContext {
