@@ -125,9 +125,30 @@ importers:
         specifier: ^2.1.0
         version: 2.1.9(@types/node@20.19.43)(lightningcss@1.32.0)
 
-  packages/fault-drivers/filesystem: {}
+  packages/fault-drivers/filesystem:
+    dependencies:
+      '@sibyl-core':
+        specifier: workspace:*
+        version: link:../../core
+      '@sibyl-shared':
+        specifier: workspace:*
+        version: link:../../shared
 
-  packages/fault-drivers/grpc: {}
+  packages/fault-drivers/grpc:
+    dependencies:
+      '@sibyl-core':
+        specifier: workspace:*
+        version: link:../../core
+      '@sibyl-shared':
+        specifier: workspace:*
+        version: link:../../shared
+    devDependencies:
+      '@grpc/grpc-js':
+        specifier: ^1.10.0
+        version: 1.14.4
+      '@grpc/proto-loader':
+        specifier: ^0.7.10
+        version: 0.7.15
 
   packages/fault-drivers/http:
     dependencies:
@@ -166,7 +187,14 @@ importers:
         specifier: ^2.1.0
         version: 2.1.9(@types/node@20.19.43)(lightningcss@1.32.0)
 
-  packages/fault-drivers/process: {}
+  packages/fault-drivers/process:
+    dependencies:
+      '@sibyl-core':
+        specifier: workspace:*
+        version: link:../../core
+      '@sibyl-shared':
+        specifier: workspace:*
+        version: link:../../shared
 
   packages/fault-drivers/queue: {}
 
