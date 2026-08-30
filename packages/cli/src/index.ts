@@ -5,7 +5,7 @@ import * as path from 'path';
 import cliProgress from 'cli-progress';
 // Need dynamic import for the user's config
 // import { SearchOrchestrator } from '@sibyl-core'; // Stub
-import { SibylInvestigator } from '@sibyl-agent';
+import { SibylInvestigator, SibylExplainer } from '@sibyl-agent';
 
 const program = new Command();
 
@@ -97,6 +97,28 @@ program
 
     if (failures > 0) {
       console.log(chalk.red.bold(`\n❌ Found ${failures} failing permutations.`));
+      
+      const apiKey = process.env.ANTHROPIC_API_KEY;
+      if (apiKey) {
+        console.log(chalk.magenta('\n🤖 Auto-analyzing root cause for the first failure...'));
+        try {
+          const explainer = new SibylExplainer({ apiKey });
+          // Mock telemetry for the CLI
+          const mockEvents = [{ type: 'HTTP_REQUEST', target: 'api.stripe.com', status: 'TIMEOUT' }];
+          const mockEvidence = { promiseName: 'no_500s', state: 'FAILED' };
+          
+          const explanation = await explainer.explainFailure('mock-run-id', mockEvents, mockEvidence);
+          
+          console.log(chalk.gray('--- AI Root Cause Analysis ---'));
+          console.log(chalk.white(explanation));
+          console.log(chalk.gray('------------------------------'));
+        } catch (err: any) {
+          console.log(chalk.red(`Failed to generate explanation: ${err.message}`));
+        }
+      } else {
+        console.log(chalk.gray('Tip: Set ANTHROPIC_API_KEY to automatically diagnose failures.'));
+      }
+      
     } else {
       console.log(chalk.green.bold(`\n✔ 0 failures found. Code is robust.`));
     }
@@ -125,6 +147,21 @@ program
 
     if (failures > 0) {
       console.error(`[ERROR] Discovered ${failures} broken invariants! Failing CI.`);
+
+      const apiKey = process.env.ANTHROPIC_API_KEY;
+      if (apiKey) {
+        console.log('\n[INFO] Auto-analyzing root cause for the first failure...');
+        try {
+          const explainer = new SibylExplainer({ apiKey });
+          const explanation = await explainer.explainFailure('mock-run-id', [{ type: 'HTTP_REQUEST' }], { promise: 'no_500s' });
+          console.log('--- AI Root Cause Analysis ---');
+          console.log(explanation);
+          console.log('------------------------------');
+        } catch (err: any) {
+          console.error(`[WARN] Failed to generate explanation: ${err.message}`);
+        }
+      }
+
       process.exit(1);
     } else {
       console.log(`[SUCCESS] 0 failures discovered.`);

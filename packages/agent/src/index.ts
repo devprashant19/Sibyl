@@ -1,5 +1,6 @@
 import Anthropic from "@anthropic-ai/sdk";
 import { getPromisesTool, getRecentEventsTool, submitInvestigationTool } from "./tools";
+export * from "./explainer";
 
 export interface InvestigatorOptions {
   apiKey: string;
