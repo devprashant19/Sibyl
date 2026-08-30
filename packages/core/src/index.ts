@@ -1,1 +1,1 @@
-export const name = "@sibyl-core";
+export * from './prng';
