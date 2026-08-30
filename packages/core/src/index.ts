@@ -9,3 +9,4 @@ export * from './search/strategy';
 export * from './search/ucb1';
 export * from './search/mcts';
 export * from './search/bayesian';
+export * from './importers/otlp';
