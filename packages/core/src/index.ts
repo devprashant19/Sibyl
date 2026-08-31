@@ -12,6 +12,7 @@ export * from './auth/rbac';
 export * from './auth/sso';
 export * from './auth/scim';
 export * from './audit/logger';
+export * from './audit/compliance';
 export * from './db/retention';
 export * from './search/strategy';
 export * from './search/ucb1';
