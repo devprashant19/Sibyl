@@ -8,6 +8,8 @@ export * from './orchestrator';
 export * from './calendar';
 export * from './github-app';
 export * from './billing';
+export * from './auth/rbac';
+export * from './audit/logger';
 export * from './search/strategy';
 export * from './search/ucb1';
 export * from './search/mcts';
