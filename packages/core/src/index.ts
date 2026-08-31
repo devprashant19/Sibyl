@@ -9,6 +9,8 @@ export * from './calendar';
 export * from './github-app';
 export * from './billing';
 export * from './auth/rbac';
+export * from './auth/sso';
+export * from './auth/scim';
 export * from './audit/logger';
 export * from './db/retention';
 export * from './search/strategy';
