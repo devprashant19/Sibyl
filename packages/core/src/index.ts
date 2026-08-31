@@ -14,6 +14,7 @@ export * from './auth/scim';
 export * from './audit/logger';
 export * from './audit/compliance';
 export * from './db/retention';
+export * from './telemetry';
 export * from './search/strategy';
 export * from './search/ucb1';
 export * from './search/mcts';
