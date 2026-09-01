@@ -12,6 +12,7 @@ export class HttpFaultDriver implements FaultDriver {
   private context?: DriverContext;
 
   install(context: DriverContext) {
+    if (this.context) return;
     this.context = context;
     this.interceptors.forEach(interceptor => interceptor.apply());
     
