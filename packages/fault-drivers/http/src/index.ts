@@ -50,9 +50,8 @@ export class HttpFaultDriver implements FaultDriver {
     if (this.context) {
       this.context.recordEvent({
         domain: this.domain,
-        faultApplied: fault,
-        metadata: { url: request.url, method: request.method }
-      });
+        payload: { method: request.method, url: request.url, statusCode: faultAny.statusCode || 0, durationMs: delay }
+      } as any);
     }
 
     if (fault.type === 'SLOW_RESPONSE') {
