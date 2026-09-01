@@ -67,6 +67,7 @@ program
   .option('--iterations <number>', 'Number of simulation runs', '100')
   .option('--concurrency <number>', 'Parallel execution limit', '1')
   .option('--local-only', 'Do not upload results to the API')
+  .option('-u, --update-snapshots', 'Update stored snapshot golden files')
   .option('--suggest-fix <filepaths...>', 'Files to analyze for suggested patches')
   .action(async (options) => {
     console.log(chalk.blue.bold(`\n👁️  Sibyl Engine Started`));
@@ -74,7 +75,11 @@ program
     
     // In a real app we'd dynamically import:
     // const { workflow, templates, promises } = await import(path.resolve(options.target));
-    // const orchestrator = new SearchOrchestrator({...});
+    // const orchestrator = new SearchOrchestrator({ 
+    //   ...config, 
+    //   iterations: parseInt(options.iterations), 
+    //   updateSnapshots: options.updateSnapshots 
+    // });
 
     const bar = new cliProgress.SingleBar({
       format: chalk.cyan('{bar}') + ' {percentage}% | {value}/{total} Runs | {failures} Failures',
@@ -173,6 +178,7 @@ program
   .description('Runs the engine in CI mode (no UI, non-zero exit on failure)')
   .option('--target <script>', 'Path to the sibyl config', 'sibyl.config.ts')
   .option('--iterations <number>', 'Number of simulation runs', '100')
+  .option('-u, --update-snapshots', 'Update stored snapshot golden files')
   .option('--suggest-fix <filepaths...>', 'Files to analyze for suggested patches')
   .action(async (options) => {
     console.log(`[INFO] Starting Sibyl CI Pipeline (${options.iterations} iterations)`);
