@@ -6,7 +6,8 @@
   "scripts": {
     "build": "tsc --build",
     "lint": "eslint .",
-    "test": "vitest run"
+    "test": "vitest run",
+    "run-api-server": "npx tsx src/api/server.ts"
   },
   "dependencies": {
     "@aws-sdk/client-s3": "^3.1121.0",
